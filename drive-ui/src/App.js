@@ -21,43 +21,43 @@ function App() {
         </nav>
 
         <header>
-          <h1 className="subtitle is-4">Exploring your Deta Drive is now only a few clicks away! <br /><strong>Heavily</strong> based on <a href="https://explorer.deta.dev/" target="_blank" rel="noreferrer">Deta Base Explorer</a>. Check out the code for
+          <h3 className="subtitle is-4">Exploring your Deta Drive is now only a few clicks away! <br /><i>Heavily</i> based on <a href="https://explorer.deta.dev/" target="_blank" rel="noreferrer">Deta Base Explorer</a>. Check out the code for
       this project at <span><a target="_blank" rel="noreferrer" href="https://github.com/Ninja243/deta-base-explorer">GitHub</a></span>.
-    </h1>
+        </h3>
         </header>
         <section>
           <form className="f1">
             <label className="l1">Project Key  </label>
-            <input id="projectKey" className="input l2" type="text" placeholder="Enter Project Key"></input>
-
-            <label className="l3">Drive Name  </label>
+            <br></br>
+            <input id="projectKey" className="input i1" type="text" placeholder="Enter Project Key"></input>
+            <br></br>
+            <label className="l1">Drive Name  </label>
+            <br></br>
             <input id="driveName" className="input i1" type="text" placeholder="Enter Drive" ></input>
-
-            <label className="l4">Key </label>
-            <input id="entryKey" className="input i2" type="text" placeholder="Optional Key Input"></input>
+            <br></br>
+            <label className="l1">Key </label>
+            <br></br>
+            <input id="entryKey" className="input i1" type="text" placeholder="Optional Key Input"></input>
+            <br></br>
           </form>
           <br /><br />
 
           <div className="d1">
-            <button id="getAll" className="button b1">
+            <button id="getAll" className="button b3">
               List Files
             </button>
 
-            <button id="get" className="button b2">
+            <button id="get" className="button b3">
               Get (with Key)
               </button>
 
             <button id="delete" className="button b3">
               Delete (with Key)
               </button>
-          </div>
-          <br />
-          <div className="d1">
             <button id="put" className="button b3">
               Put Data (with Key)
           </button>
           </div>
-
           <br />
 
           <div className="d3">
@@ -75,7 +75,7 @@ function App() {
             </div>
             <br />
             <div className="d1">
-              <button id="putConfirm" className="button b1" >
+              <button id="putConfirm" className="button b3" >
                 Write into your Drive!
             </button>
             </div>

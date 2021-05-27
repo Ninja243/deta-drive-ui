@@ -1,0 +1,1 @@
+{"id":"2e7cb32a-4653-4773-9735-3d662ce95912","space":3308,"runtime":"python3.7","name":"built_drive_ui","path":"mgmm60","project":"a0wrh1g2","account":"144798365827","region":"eu-central-1","deps":["aiofiles","fastapi"],"envs":null,"public":true,"log_level":"debug","cron":"","reload_deps":false}
