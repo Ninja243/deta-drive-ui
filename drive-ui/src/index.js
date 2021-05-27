@@ -257,9 +257,8 @@ async function deleteFunction(projectKey, driveName, entryKey) {
     const deta = Deta(projectKey.value)
     const drive = deta.Drive(driveName.value)
     const deleted = await drive.delete(entryKey.value)
-    if (deleted === null) {
-      result.innerText = 'The entry was deleted!'
-    }
+    console.log(deleted)
+    result.innerText = 'The entry was deleted!'
   }
 }
 
