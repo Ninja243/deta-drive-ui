@@ -22,8 +22,8 @@ class App extends Component {
       previewFile: null,
       count: 0,
       files: [],
-      projectKey: "a0wrh1g2_HdF5xo6FkZjP1CAhGKd5aReAbTno332s",
-      driveName: "testDrive",
+      projectKey: null, 
+      driveName: null, 
       uploadModalVisible: false,
       filesToUpload: [],
       fileDropText: "Drop your files here"
@@ -31,7 +31,6 @@ class App extends Component {
   }
 
   componentDidMount = async () => {
-    // TODO check env var
     if (this.state.projectKey !== null && this.state.driveName !== null) {
       this.refreshFiles()
     }
@@ -45,8 +44,6 @@ class App extends Component {
     everything['names'].forEach(async (element) => {
       let tempObj = {
         key: element,
-        // modified: null,
-        // size: null
       }
       this.state.files.push(tempObj)
     })
@@ -92,6 +89,7 @@ class App extends Component {
     const deta = Deta(this.state.projectKey)
     const drive = deta.Drive(this.state.driveName)
     console.log(this.state.filesToUpload)
+
     for (const file of this.state.filesToUpload) {
       console.log(file)
       const fr = new FileReader();
@@ -119,12 +117,11 @@ class App extends Component {
           }
         })
       }
-      fr.readAsArrayBuffer(file).then(() => {
-        if (this.state.filesToUpload.length > 0) {
-          console.error("Failed to upload files", this.state.filesToUpload)
-        }
-
-      })
+      console.log(fr)
+      fr.readAsArrayBuffer(file)
+      if (this.state.filesToUpload.length > 0) {
+        console.error("Failed to upload files", this.state.filesToUpload)
+      }
     }
 
 
@@ -182,7 +179,7 @@ class App extends Component {
                           <div className="preview"><h3>File can't be previewed</h3></div>
                   }
                   <div className="controls">
-                    
+
                     <button onClick={() => {
                       var deta = Deta(this.state.projectKey)
                       var drive = deta.Drive(this.state.driveName)
@@ -209,6 +206,7 @@ class App extends Component {
                       })
                     }}>&#8249;</button>
                     <FileDrop className="uploadBox" onDrop={(files, event) => {
+                      event.preventDefault()
                       this.setState({
                         "filesToUpload": files
                       }, () => {
@@ -219,18 +217,18 @@ class App extends Component {
                             this.setState({
                               fileDropText: "Drop your files here",
                               uploadModalVisible: false
+                            }, () => {
+                              this.refreshFiles()
                             })
-                          }).then(() => {
-                            this.refreshFiles()
                           })
                         })
-
+                        
 
                       })
                     }}>
                       {this.state.fileDropText}
                     </FileDrop>
-                    
+
                   </div> :
                     <div>
                       <button onClick={() => {
@@ -238,6 +236,9 @@ class App extends Component {
                           "uploadModalVisible": true
                         })
                       }}>Upload files</button>
+                      <button className="refreshButton" onClick={() => {
+                        this.refreshFiles()
+                      }}>Refresh</button>
                       <FileBrowser className="fb"
                         files={this.state.files}
                         onSelect={this.handleSelected}
