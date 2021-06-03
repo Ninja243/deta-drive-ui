@@ -22,8 +22,8 @@ class App extends Component {
       previewFile: null,
       count: 0,
       files: [],
-      projectKey: null, // "a0wrh1g2_HdF5xo6FkZjP1CAhGKd5aReAbTno332s",
-      driveName: null, //"testDrive",
+      projectKey: "a0wrh1g2_HdF5xo6FkZjP1CAhGKd5aReAbTno332s",
+      driveName: "testDrive",
       uploadModalVisible: false,
       filesToUpload: [],
       fileDropText: "Drop your files here"
@@ -41,7 +41,7 @@ class App extends Component {
     var deta = Deta(this.state.projectKey)
     var drive = deta.Drive(this.state.driveName)
     var everything = await drive.list()
-    this.setState({ "files": [] })
+    this.setState({ "files": [], "filesToUpload": [], })
     everything['names'].forEach(async (element) => {
       let tempObj = {
         key: element,
@@ -116,7 +116,7 @@ class App extends Component {
             this.setState({
               filesToUpload: this.state.filesToUpload.splice(this.state.filesToUpload.indexOf(file), 1),
             })
-          } 
+          }
         })
       }
       fr.readAsArrayBuffer(file).then(() => {
@@ -124,13 +124,10 @@ class App extends Component {
           console.error("Failed to upload files", this.state.filesToUpload)
         }
 
-        this.setState({
-          filesToUpload: [],
-          fileDropText: "Drop your files here",
-          uploadModalVisible: false
-        })
       })
     }
+
+
   }
 
   render() {
@@ -173,6 +170,7 @@ class App extends Component {
 
                 <div>
                   <h1 className="previewHeader">Preview</h1>
+                  <button onClick={() => { this.refreshFiles(); this.setState({ "previewFile": null }) }}>&#8249;</button>
                   {this.state.previewFile.file.type?.startsWith("image") ?
                     <div className="preview"><img alt="A preview of the stored file" src={this.state.previewFile.url}></img></div> :
                     this.state.previewFile.file.type?.startsWith("video") ?
@@ -184,7 +182,7 @@ class App extends Component {
                           <div className="preview"><h3>File can't be previewed</h3></div>
                   }
                   <div className="controls">
-                    <button onClick={() => { this.refreshFiles(); this.setState({ "previewFile": null }) }}>&#8249;</button>
+                    
                     <button onClick={() => {
                       var deta = Deta(this.state.projectKey)
                       var drive = deta.Drive(this.state.driveName)
@@ -204,38 +202,49 @@ class App extends Component {
 
                 :
                 <div>
-                  {this.state.uploadModalVisible ? <div>
-                    <FileDrop onDrop={(files, event) => {
+                  {this.state.uploadModalVisible ? <div >
+                    <button onClick={() => {
+                      this.setState({
+                        "uploadModalVisible": false
+                      })
+                    }}>&#8249;</button>
+                    <FileDrop className="uploadBox" onDrop={(files, event) => {
                       this.setState({
                         "filesToUpload": files
                       }, () => {
                         this.setState({
                           "fileDropText": "Uploading ..."
                         }, () => {
-                          this.uploadStoredFiles()
+                          this.uploadStoredFiles().then(() => {
+                            this.setState({
+                              fileDropText: "Drop your files here",
+                              uploadModalVisible: false
+                            })
+                          }).then(() => {
+                            this.refreshFiles()
+                          })
                         })
-                        
+
 
                       })
                     }}>
                       {this.state.fileDropText}
                     </FileDrop>
-                    <button onClick={() => {
-                      this.setState({
-                        "uploadModalVisible": false
-                      })
-                    }}>&#8249;</button>
+                    
                   </div> :
-                    <button onClick={() => {
-                      this.setState({
-                        "uploadModalVisible": true
-                      })
-                    }}>Upload files</button>}
-                  <FileBrowser className="fb"
-                    files={this.state.files}
-                    onSelect={this.handleSelected}
+                    <div>
+                      <button onClick={() => {
+                        this.setState({
+                          "uploadModalVisible": true
+                        })
+                      }}>Upload files</button>
+                      <FileBrowser className="fb"
+                        files={this.state.files}
+                        onSelect={this.handleSelected}
+                      />
+                    </div>
+                  }
 
-                  />
                 </div>
 
               :
