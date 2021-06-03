@@ -48,4 +48,55 @@ body {
   text-align: left;
 }
 
+.rendered-react-keyed-file-browser {
+  width: 100%
+}
+
+.action-bar input {
+  width: 100%;
+  margin-top: 1em;
+}
+
+.files table {
+  width: 100%
+}
+
+.preview {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  max-width: 100%;
+  padding-top: 2em;
+  padding-bottom: 2em;
+  contain: content;
+}
+
+.preview img {
+  width: 100% !important;
+}
+
+.controls button {
+  display: inline-block;
+  margin-left: 7%;
+  margin-right: 7%;
+}
+
+.signInForm input {
+  display: block;
+  width: 100%;
+}
+
+.controls {
+  text-align: center;
+}
+
+.previewHeader {
+  text-align: center;
+  margin:auto;
+}
+
+.signOut {
+  text-align: right;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@200&display=swap');
