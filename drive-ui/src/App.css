@@ -61,6 +61,10 @@ body {
   width: 100%
 }
 
+.files .size, .files .modified, .detail {
+  display: none;
+}
+
 .preview {
   margin: auto;
   text-align: center;
@@ -86,7 +90,7 @@ body {
   width: 100%;
 }
 
-.controls {
+.controls, .headingText {
   text-align: center;
 }
 
